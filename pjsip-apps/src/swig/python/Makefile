@@ -1,3 +1,5 @@
+include ../../../../build.mak
+include $(PJDIR)/build/common.mak
 PYTHON_SO=_pjsua2.so
 
 USE_PYTHON3?=1
@@ -18,6 +20,8 @@ else
   GCC_EXE=
 endif
 
+pjsua2_tmp_files = pjsua_target_name.tmp
+
 SWIG_FLAGS=-I../../../../pjlib/include \
 		   -I../../../../pjlib-util/include \
 		   -I../../../../pjmedia/include \
@@ -33,8 +37,11 @@ SWIG_FLAGS += -w312 $(USE_THREADS)
 
 all: $(PYTHON_SO)
 
-$(PYTHON_SO): pjsua2_wrap.cpp setup.py $(GCC_EXE)
+$(PYTHON_SO): pjsua2_wrap.cpp setup.py $(GCC_EXE) $(pjsua2_tmp_files)
 	$(PYTHON_EXE) setup.py build $(PYTHON_SETUP_FLAGS)
+
+pjsua_target_name.tmp:
+	echo $(TARGET_NAME) > $@
 
 gcc.exe: cc_mingw.c
 	gcc -o gcc.exe cc_mingw.c
@@ -45,7 +52,7 @@ pjsua2_wrap.cpp: ../pjsua2.i ../symbols.i Makefile $(SRCS)
 
 clean distclean realclean:
 	rm -rf $(PYTHON_SO) pjsua2_wrap.cpp pjsua2_wrap.h pjsua2.py build *.pyc
-	rm -f gcc.exe g++.exe
+	rm -f gcc.exe g++.exe $(pjsua2_tmp_files)
 
 install:
 	$(PYTHON_EXE) setup.py install --user

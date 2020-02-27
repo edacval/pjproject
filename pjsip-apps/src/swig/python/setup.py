@@ -67,7 +67,7 @@ if pj_version_suffix:
 MAKE = os.environ.get('MAKE') or "make"
 
 # Get targetname
-f = os.popen("%s --no-print-directory -f helper.mak target_name" % MAKE)
+f = open('pjsua_target_name.tmp', 'r')
 pj_target_name = f.read().rstrip("\r\n")
 f.close()
 

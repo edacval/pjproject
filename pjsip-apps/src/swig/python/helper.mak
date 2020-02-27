@@ -18,7 +18,3 @@ cflags:
 	@for token in `echo $(PJ_CXXFLAGS) $(CFLAGS)`; do \
 		echo $$token; \
 	done
-
-target_name:
-	@echo $(TARGET_NAME)
-	
