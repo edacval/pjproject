@@ -34,7 +34,7 @@ SWIG_FLAGS += -w312 $(USE_THREADS)
 all: $(PYTHON_SO)
 
 $(PYTHON_SO): pjsua2_wrap.cpp setup.py $(GCC_EXE)
-	$(PYTHON_EXE) setup.py build $(PYTHON_SETUP_FLAGS)
+	MAKEFLAGS= $(PYTHON_EXE) setup.py build $(PYTHON_SETUP_FLAGS)
 
 gcc.exe: cc_mingw.c
 	gcc -o gcc.exe cc_mingw.c
