@@ -65,6 +65,7 @@ if pj_version_suffix:
 
 # Get 'make' from environment variable if any
 MAKE = os.environ.get('MAKE') or "make"
+MAKE = "MAKEFLAGS= " + MAKE
 
 # Get targetname
 f = os.popen("%s --no-print-directory -f helper.mak target_name" % MAKE)
