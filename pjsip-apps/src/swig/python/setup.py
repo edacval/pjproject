@@ -71,6 +71,8 @@ f = os.popen("%s --no-print-directory -f helper.mak target_name" % MAKE)
 pj_target_name = f.read().rstrip("\r\n")
 f.close()
 
+write("\n\nstart pj_target_name\n\n" + pj_target_name + "\n\nend pj_taeget_name\n\n")
+
 # Fill in extra_compile_args
 extra_compile_args = []
 f = os.popen("%s --no-print-directory -f helper.mak cflags" % MAKE)
